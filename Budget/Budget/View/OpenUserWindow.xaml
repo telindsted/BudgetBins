@@ -1,17 +1,18 @@
-﻿<Window x:Class="Budget.View.YesNoWindow"
+﻿<Window x:Class="Budget.View.OpenUserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Budget.View"
         mc:Ignorable="d"
-        Title="Confirm" Height="100" Width="300"
-        ResizeMode="CanMinimize">
+        Title="Load User" Height="300" Width="300" ResizeMode="CanMinimize">
     <StackPanel>
-        <TextBlock x:Name="Question" Text="{Binding TheQuestion}" Margin="5"/>
+        <ListBox x:Name="UserFiles" Margin="10" MinHeight="200"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="Yes" IsDefault="True" Content="Yes" Margin="5" Click="Yes_Click"/>
-            <Button x:Name="No" IsCancel="True" Content="No" Margin="5" Click="No_Click"/>
+            <Button x:Name="OkButton" Content="Load User" IsDefault="True" Click="OkButton_Click"
+                    Margin="5"/>
+            <Button x:Name="CancelButton" Content="Cancel" IsCancel="True" Click="CancelButton_Click"
+                    Margin="5"/>
         </StackPanel>
     </StackPanel>
 </Window>

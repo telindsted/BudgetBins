@@ -26,8 +26,11 @@ namespace Budget.Model
         [DataMember]
         private decimal _balance;
 
+        [DataMember]
         public DateTime? LastUpkeep { get; set; }
+        [DataMember]
         public DateTime? LastUpdate { get; set; }
+
         public List<Bin> BinList { get { return _binList; } }
         public List<Bill> BillList { get { return _billList; } }
         public decimal Balance { get { return _balance; } }
@@ -65,14 +68,11 @@ namespace Budget.Model
                     _balance -= bin.Upkeep;
             }
             LastUpkeep = DateTime.Now;
-            SaveUser();
-
         }
         public void AddIncome(decimal amount)
         {
             _balance += amount;
             UpdateLog("Added " + amount + " to balance");
-            SaveUser();
         }
         // Returns the upkeep cost
         public decimal GetCost()
@@ -99,25 +99,17 @@ namespace Budget.Model
             LastUpdate = DateTime.Now;
             _log.AddLogEntry(description);
         }
-        public void SaveUser()
-        {
-            //throw new NotImplementedException();
-        }
 
-        // Does not save user data
         public void FillBin(Bin binToFill, decimal amountToAdd)
         {
             binToFill.FillBin(amountToAdd);
             UpdateLog("Added " + binToFill.Upkeep + " to " + binToFill.Name);
         }
-        // Creates and adds a bin to the binList
         public void AddBin(string name, string description, decimal upkeep, decimal currentAmount)
         {
             _binList.Add(new Bin(name, description, upkeep, currentAmount));
             UpdateLog("Created a new bin: " + name + " and added " + currentAmount);
-            SaveUser();
         }
-        // Remove a bin from the binList
         public void RemoveBin(Bin binToRemove, bool transferFunds)
         {
             UpdateLog("Removed the bin: " + binToRemove);
@@ -126,7 +118,6 @@ namespace Budget.Model
                 AddIncome(binToRemove.CurrentAmount);
             }
             _binList.Remove(binToRemove);
-            SaveUser();
         }
         public void ModBin(Bin binToMod, string name, string description, decimal upkeep, decimal currentAmount)
         {
@@ -153,7 +144,6 @@ namespace Budget.Model
             _billList.Add(new Bill(name, dueDate, description, amount, binToRemoveFrom));
             UpdateLog("Added the bill " + name + " due on " + dueDate.ToShortDateString() + 
                 " for the amount of " + amount);
-            SaveUser();
         }
         public void AddBill(string name, DateTime dueDate, string description, decimal amount,
             bool autoPay, Bin binToRemoveFrom, bool isPeriodic, TimeSpan? frequency)
@@ -162,7 +152,6 @@ namespace Budget.Model
                 isPeriodic, frequency, autoPay));
             UpdateLog("Added the bill " + name + " due on " + dueDate.ToShortDateString() +
                 " for the amount of " + amount);
-            SaveUser();
         }
         public void RemoveBill(Bill billToRemove, bool wasPayed = true)
         {
@@ -209,7 +198,31 @@ namespace Budget.Model
                 "Description changed from " + oldDescription + " to " + description + Environment.NewLine +
                 "Amount changed from " + oldAmount + " to " + amount + Environment.NewLine);
         }
+        public void Transfer(Bin fromBin, Bin toBin, decimal amount)
+        {
+            if (fromBin == toBin)
+                return;
+            if (fromBin == null && toBin != null)
+            {
+                AddIncome(-amount);
+                FillBin(toBin, amount);
+                UpdateLog(amount + " transfered from balance to " + toBin.Name);
+                return;
+            }
+            if (fromBin != null && toBin == null)
+            {
+                AddIncome(amount);
+                FillBin(fromBin, -amount);
+                UpdateLog(amount + " transfered from " + fromBin.Name + " to balance");
+                return;
+            }
+            FillBin(fromBin, -amount);
+            FillBin(toBin, amount);
+            UpdateLog(amount + " transfered from " + fromBin.Name + " to " + toBin.Name);
 
+
+
+        }
 
     }
 }

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Budget.View"
         mc:Ignorable="d"
-        Title="Bill Window" Height="200" Width="200">
+        Title="Bill Window" Height="200" Width="200"
+        ResizeMode="CanMinimize">
     <StackPanel>
         <DockPanel Margin="1">
             <TextBlock Text="Name: "/>

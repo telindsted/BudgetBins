@@ -78,6 +78,12 @@
     <Compile Include="View\GetNameWindow.xaml.cs">
       <DependentUpon>GetNameWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\OpenUserWindow.xaml.cs">
+      <DependentUpon>OpenUserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TransferWindow.xaml.cs">
+      <DependentUpon>TransferWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\YesNoWindow.xaml.cs">
       <DependentUpon>YesNoWindow.xaml</DependentUpon>
     </Compile>
@@ -123,6 +129,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\GetNameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OpenUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransferWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,11 @@
-﻿5/28/17
+﻿5/29/17
+() Solidfy Integrity: When loading xml files, check version/type to prevent misloads
+
+() Design decision: Should bins/balance be allowed to go negative?
+
+(done) Missing essiental features: Ability to subtract from a bin and add to income (for when income doesn't cover upkeep)
+
+5/28/17
 () Bug Prevention: Possible leak when reading in a user.  Use a try/catch and create a new user if
 things go wrong.
 

@@ -118,6 +118,14 @@ namespace Budget.View
                     binWindow.UpkeepResult, binWindow.AmountResult);
             }
         }
+        private void BinTransfer_Click(object sender, RoutedEventArgs e)
+        {
+            TransferWindow transferWindow = new TransferWindow(viewModel.BinList.ToList(), viewModel.Balance);
+            if (transferWindow.ShowDialog() == true)
+            {
+                viewModel.Transfer(transferWindow.FromBin, transferWindow.ToBin, transferWindow.Amount);
+            }
+        }
         private void BinDel_Click(object sender, RoutedEventArgs e)
         {
             if (BinDisplay.SelectedItem is Bin)
@@ -141,7 +149,6 @@ namespace Budget.View
         {
             viewModel.Upkeep();
         }
-
         private void NewUserButton_Click(object sender, RoutedEventArgs e)
         {
             GetNameWindow getNameWindow = new GetNameWindow();
@@ -150,13 +157,12 @@ namespace Budget.View
                viewModel.NewUser(getNameWindow.UserInput);
             }
         }
-
         private void LoadUserButton_Click(object sender, RoutedEventArgs e)
         {
-            GetNameWindow getNameWindow = new GetNameWindow();
-            if (getNameWindow.ShowDialog() == true)
+            OpenUserWindow openUserWindow = new OpenUserWindow(viewModel.UserDirectory);
+            if (openUserWindow.ShowDialog() == true)
             {
-                viewModel.LoadUser(getNameWindow.UserInput);
+                viewModel.LoadUser(openUserWindow.FilePath);
             }
         }
 
@@ -164,5 +170,14 @@ namespace Budget.View
         {
             viewModel.ResetUser();
         }
+
+        private void EventSetter_OnHandler(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt != null) txt.SelectAll();
+
+        }
+
+
     }
 }

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using System.Windows.Controls;
+
 namespace Budget
 {
     /// <summary>
@@ -13,9 +15,18 @@ namespace Budget
     /// </summary>
     public partial class App : Application
     {
-        private void Application_Exit(object sender, ExitEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
-            
+            EventManager.RegisterClassHandler(typeof(TextBox), TextBox.GotKeyboardFocusEvent,
+                new RoutedEventHandler(SelectAllText));
+            base.OnStartup(e);
+        }
+
+        void SelectAllText(object sender, RoutedEventArgs e)
+        {
+            var textBox = e.OriginalSource as TextBox;
+            if (textBox != null)
+                textBox.SelectAll();
         }
     }
 }

@@ -2,9 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Budget"
-             StartupUri="view\BudgetView.xaml"
-             Exit="Application_Exit">
+             StartupUri="view\BudgetView.xaml">
     <Application.Resources>
-         
+
     </Application.Resources>
 </Application>

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Budget.View"
         mc:Ignorable="d"
-        Title="Enter name" Height="100" Width="300">
+        Title="Enter name" Height="100" Width="300"
+        ResizeMode="CanMinimize">
     <StackPanel>
         <TextBox x:Name="UserNameBox" Margin="5" Text="Enter unique name here..."/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

@@ -17,7 +17,7 @@ namespace Budget.ViewModel
     public class BudgetViewModel : INotifyPropertyChanged
     {
         private User _currentUser;
-        //private string _userFile;
+        private string _userDirectory = "";
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyPath)
@@ -30,14 +30,34 @@ namespace Budget.ViewModel
 
         public string UserName { get { return _currentUser.Name; } }
         public decimal Balance { get { return _currentUser.Balance; } }
+        public string Log { get { return _currentUser.GetLog(); } }
+        public string UserDirectory { get { return _userDirectory; } }
+        public DateTime? LastUpkeep { get { return _currentUser.LastUpkeep; } }
 
         public BudgetViewModel()
         {
-            _currentUser = new User("Default");
             BinList = new ObservableCollection<Bin>();
             BillList = new ObservableCollection<Bill>();
-            ReadUser("Default.xml");
+
+            LoadDefaultUser();
+
             Update();
+        }
+
+        private void LoadDefaultUser()
+        {
+            if (Directory.Exists("Users"))
+                _userDirectory = @"Users\";
+            else
+                Directory.CreateDirectory("Users");
+
+            if (File.Exists(@"Users\Default.xml"))
+                ReadUser(@"Users\Default.xml");
+            else
+            {
+                _currentUser = new User("Default");
+                ReadUser(@"Users\Default.xml");
+            }
         }
 
         public void UpdateBinList()
@@ -79,6 +99,11 @@ namespace Budget.ViewModel
             _currentUser.AddIncome(amount);
             Update();
         }
+        public void Transfer(Bin fromBin, Bin toBin, decimal amount)
+        {
+            _currentUser.Transfer(fromBin, toBin, amount);
+            Update();
+        }
 
         public void UpdateBillList()
         {
@@ -114,23 +139,22 @@ namespace Budget.ViewModel
         {
             OnPropertyChanged("Balance");
             OnPropertyChanged("UserName");
+            OnPropertyChanged("Log");
+            OnPropertyChanged("LastUpkeep");
             UpdateBinList();
             UpdateBillList();
             WriteUser(_currentUser);
         }
-
         public void NewUser(string userName)
         {
             _currentUser = new User(userName);
             Update();
         }
-
-        public void LoadUser(string userName)
+        public void LoadUser(string filePath)
         {
-            ReadUser(userName + ".xml");
+            ReadUser(filePath);
             Update();
         }
-
         public void ReadUser(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
@@ -156,10 +180,9 @@ namespace Budget.ViewModel
             UpdateBillList();
             OnPropertyChanged("UserName");
         }
-
         public void WriteUser(User userToWrite)
         {
-            string filePath = Path.GetFullPath(userToWrite.Name + ".xml");
+            string filePath = Path.GetFullPath(_userDirectory + userToWrite.Name + ".xml");
 
             if (File.Exists(filePath))
                 File.Delete(filePath);
@@ -171,11 +194,20 @@ namespace Budget.ViewModel
                 serializer.WriteObject(outputStream, userToWrite);
             }
         }
-
         public void ResetUser()
         {
-            if (File.Exists("Default.xml"))
-                File.Delete("Default.xml");
+
+            WriteUser(_currentUser);
+            if (_currentUser.Name == "Default")
+                return;
+            else
+                File.Replace(Path.GetFullPath(_userDirectory + _currentUser.Name + ".xml"),
+                    Path.GetFullPath(_userDirectory + "Default.xml"),
+                    Path.GetFullPath(_userDirectory + "Backup.xml"));
+            if (File.Exists(Path.GetFullPath(_userDirectory + "Backup.xml")))
+                File.Delete(Path.GetFullPath(_userDirectory + "Backup.xml"));
         }
+
+
     }
 }

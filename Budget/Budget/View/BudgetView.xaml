@@ -6,13 +6,22 @@
         xmlns:local="clr-namespace:Budget.View"
         xmlns:viewmodel="clr-namespace:Budget.ViewModel"
         mc:Ignorable="d"
-        Title="Budget" Height="300" Width="200"
+        Title="Budget" Height="400" Width="200"
         Closing="Window_Closing"
+        ResizeMode="CanMinimize"
         >
     <Window.Resources>
         <viewmodel:BudgetViewModel x:Key="viewModel"/>
     </Window.Resources>
     <StackPanel DataContext="{StaticResource ResourceKey=viewModel}">
+        <DockPanel Margin="5">
+            <TextBlock Text="Current User: " />
+            <TextBlock Text="{Binding UserName}" />
+        </DockPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="NewUserButton" Content="New User" Click="NewUserButton_Click" />
+            <Button x:Name="LoadUserButton" Content="Load User" Click="LoadUserButton_Click"/>
+        </StackPanel>
         <DockPanel>
             <Button x:Name="BalanceButton" Content="Add Income" DockPanel.Dock="Right"
                     Margin="5" Click="BalanceButton_Click"/>
@@ -20,7 +29,7 @@
         </DockPanel>
         <DockPanel Margin="5">
             <TextBlock Text="Balance: "/>
-            <TextBlock Text="{Binding Balance}" />
+            <TextBlock Text="{Binding Balance}"/>
         </DockPanel>
         <StackPanel Margin="5">
             <TextBlock Text="Bills"/>
@@ -38,17 +47,19 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="BinMod" Content="Mod" Click="BinMod_Click"/>
                 <Button x:Name="BinNew" Content="New" Click="BinNew_Click"/>
+                <Button x:Name="BinTransfer" Content="Transfer" Click="BinTransfer_Click"/>
                 <Button x:Name="BinDel" Content="Del" Click="BinDel_Click"/>
             </StackPanel>
         </StackPanel>
-        <Button x:Name="UpkeepButton" Content="Upkeep" Click="UpkeepButton_Click" Margin="5"/>
-        <DockPanel Margin="5">
-            <TextBlock Text="Current User: " />
-            <TextBlock Text="{Binding UserName}" />
+        <DockPanel Margin='5,0,0,0'>
+            <TextBlock Text="Last Upkeep: "/>
+            <TextBlock Text="{Binding LastUpkeep}"/>
         </DockPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button x:Name="NewUserButton" Content="New User" Click="NewUserButton_Click" />
-            <Button x:Name="LoadUserButton" Content="Load User" Click="LoadUserButton_Click"/>
-        </StackPanel>
+        <Button x:Name="UpkeepButton" Content="Upkeep" Click="UpkeepButton_Click" Margin="5"/>
+        <TextBlock Text="Log" Margin='5,0,0,0'/>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+            <ScrollViewer x:Name="LogBox" Content="{Binding Log}" VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Auto" Margin="1" Height="100" Width="190"/>
+        </Border>
     </StackPanel>
 </Window>
