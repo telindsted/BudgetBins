@@ -1,0 +1,33 @@
+﻿<Window x:Class="Budget.View.BinWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Budget.View"
+        mc:Ignorable="d"
+        Title="Bin Window" Height="200" Width="200">
+    <StackPanel Margin="5">
+        <DockPanel>
+            <TextBlock Text="Name: "/>
+            <TextBox x:Name="BinName"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Description: "/>
+            <TextBox x:Name="BinDescription"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Upkeep: "/>
+            <TextBox x:Name="BinUpkeep"/>
+        </DockPanel>
+        <DockPanel>
+            <TextBlock Text="Current Amount: "/>
+            <TextBox x:Name="BinAmount"/>
+        </DockPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="OKButton" Content="OK" Margin="5,0" Click="OKButton_Click"
+                    IsDefault="True"/>
+            <Button x:Name="CancelButton" Content="Cancel" Margin="5,0" Click="CancelButton_Click"
+                    IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

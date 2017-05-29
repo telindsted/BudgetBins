@@ -1,0 +1,54 @@
+﻿<Window x:Class="Budget.View.BudgetView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Budget.View"
+        xmlns:viewmodel="clr-namespace:Budget.ViewModel"
+        mc:Ignorable="d"
+        Title="Budget" Height="300" Width="200"
+        Closing="Window_Closing"
+        >
+    <Window.Resources>
+        <viewmodel:BudgetViewModel x:Key="viewModel"/>
+    </Window.Resources>
+    <StackPanel DataContext="{StaticResource ResourceKey=viewModel}">
+        <DockPanel>
+            <Button x:Name="BalanceButton" Content="Add Income" DockPanel.Dock="Right"
+                    Margin="5" Click="BalanceButton_Click"/>
+            <TextBox x:Name="BalanceBox" Margin="5" DockPanel.Dock="Left"/>
+        </DockPanel>
+        <DockPanel Margin="5">
+            <TextBlock Text="Balance: "/>
+            <TextBlock Text="{Binding Balance}" />
+        </DockPanel>
+        <StackPanel Margin="5">
+            <TextBlock Text="Bills"/>
+            <ListBox x:Name="BillDisplay" ItemsSource="{Binding BillList}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="BillPay" Content="Pay" Click="BillPay_Click"/>
+                <Button x:Name="BillAdd" Content="New" Click="BillAdd_Click"/>
+                <Button x:Name="BillMod" Content="Mod" Click="BillMod_Click"/>
+                <Button x:Name="BillDel" Content="Del" Click="BillDel_Click"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="5">
+                <TextBlock Text="Bins"/>
+                <ListBox x:Name="BinDisplay" ItemsSource="{Binding BinList}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="BinMod" Content="Mod" Click="BinMod_Click"/>
+                <Button x:Name="BinNew" Content="New" Click="BinNew_Click"/>
+                <Button x:Name="BinDel" Content="Del" Click="BinDel_Click"/>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="UpkeepButton" Content="Upkeep" Click="UpkeepButton_Click" Margin="5"/>
+        <DockPanel Margin="5">
+            <TextBlock Text="Current User: " />
+            <TextBlock Text="{Binding UserName}" />
+        </DockPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="NewUserButton" Content="New User" Click="NewUserButton_Click" />
+            <Button x:Name="LoadUserButton" Content="Load User" Click="LoadUserButton_Click"/>
+        </StackPanel>
+    </StackPanel>
+</Window>

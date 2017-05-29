@@ -1,0 +1,12 @@
+﻿5/28/17
+() Bug Prevention: Possible leak when reading in a user.  Use a try/catch and create a new user if
+things go wrong.
+
+5/25/17
+(check)Bookmark: need to finished bill window and bill button logic
+
+Helpful Resource: Used for dialog windows http://www.wpf-tutorial.com/dialogs/creating-a-custom-input-dialog/
+
+5/23/17
+(done) Design Decision: Remove income bins (and bin type for that matter).  Perhaps a user starts by default with a
+bin used for storing income.

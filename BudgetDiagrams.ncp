@@ -1,0 +1,166 @@
+<Project>
+  <Name>Budget</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>ClassDiagram</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>Bin</Name>
+        <Access>Public</Access>
+        <Location left="1532" top="697" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public string Description { get; set; }</Member>
+        <Member type="Property">public Decimal Upkeep { get; set; }</Member>
+        <Member type="Property">public Decimal CurrentAmount { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Bill</Name>
+        <Access>Public</Access>
+        <Location left="539" top="1081" />
+        <Size width="162" height="230" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public DateTime DueDate { get; set; }</Member>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Property">public string Description { get; set; }</Member>
+        <Member type="Property">public decimal Amount { get; set; }</Member>
+        <Member type="Property">public bool Automatic { get; set; }</Member>
+        <Member type="Property">public Bin BinToRemoveFrom { get; set; }</Member>
+        <Member type="Property">public bool Periodic { get; set; }</Member>
+        <Member type="Property">public TimeSpan Frequency { get; set; }</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Transaction_IComparable</Name>
+        <Access>Public</Access>
+        <Location left="880" top="1224" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public decimal Amount { get; set; }</Member>
+        <Member type="Property">public DateTime Date { get; set; }</Member>
+        <Member type="Property">public Bin ToBin { get; set; }</Member>
+        <Member type="Property">public Bin FromBin { get; set; }</Member>
+        <Member type="Property">public string Description { get; set; }</Member>
+        <Member type="Property">public string Name { get; set; }</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>User</Name>
+        <Access>Public</Access>
+        <Location left="659" top="540" />
+        <Size width="302" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void AddTransaction(Bin theBin)</Member>
+        <Member type="Method">public decimal GetIncome()</Member>
+        <Member type="Method">public decimal GetCost()</Member>
+        <Member type="Method">public void RemoveBin(Bin theBin)</Member>
+        <Member type="Method">public void AddBin(Bin theBin)</Member>
+        <Member type="Method">public string GetLog()</Member>
+        <Member type="Method">public decimal Upkeep()</Member>
+        <Member type="Property">public DateTime LastUpkeep { get; set; }</Member>
+        <Member type="Property">public DateTime LastUpdate { get; set; }</Member>
+        <Member type="Method">public void AddBill()</Member>
+        <Member type="Method">public void LogTransaction()</Member>
+        <Member type="Method">public string GetUpcomingBills(TimeSpan timeSpan)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LogBook</Name>
+        <Access>Public</Access>
+        <Location left="251" top="511" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public string GetLog()</Member>
+        <Member type="Method">public void AddLogEntry()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LogEntry</Name>
+        <Access>Public</Access>
+        <Location left="212" top="911" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public DateTime Date { get; set; }</Member>
+        <Member type="Property">public string Description { get; set; }</Member>
+        <Member type="Method">public override string ToString()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>Upkeep performs income calculation, dynamic bins (for now), and returns what is left if anything.</Text>
+        <Location left="959" top="540" />
+        <Size width="160" height="75" />
+      </Entity>
+      <Entity type="Comment">
+        <Text>A purchase is a transaction with no ToBin</Text>
+        <Location left="1044" top="1278" />
+        <Size width="160" height="75" />
+      </Entity>
+      <Entity type="Enum">
+        <Name>BinType</Name>
+        <Access>Public</Access>
+        <Location left="1532" top="1108" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>CostBin</Value>
+        <Value>IncomeBin</Value>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="3" second="0">
+        <Label>BinList</Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="3" second="4">
+        <Label>Log</Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="4" second="5">
+        <Label>LogEntries</Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>1..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="3" second="2">
+        <Label>TransactionList</Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Association" first="3" second="1">
+        <Label>BillList</Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+        <StartMultiplicity>1</StartMultiplicity>
+        <EndMultiplicity>0..*</EndMultiplicity>
+      </Relationship>
+      <Relationship type="Dependency" first="0" second="8">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
